@@ -1,4 +1,3 @@
-
 # Change3D
 The official code of **[Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective](https://arxiv.org/pdf/2406.12847)**.  
 Duowang Zhu<sup>1</sup>, Xiaohu Huang<sup>2</sup>, Haiyan Huang<sup>1</sup>, Hao Zhou<sup>3</sup>, and Zhenfeng Shao<sup>1</sup>
@@ -15,7 +14,6 @@ We present **Change3D**, a unified video-based framework for change detection an
 
 Figure 1. Overall architectures of Change3D for Binary Change Detection, Semantic Change Detection, Building Damage Assessment, and Change Captioning.
 
-
 # Performance
 We conduct extensive experiments on eight public datasets: LEVIR-CD, WHU-CD, CLCD, HRSCD, SECOND, xBD, LEVIR-CC, and DUBAI-CC.
 
@@ -26,7 +24,6 @@ We conduct extensive experiments on eight public datasets: LEVIR-CD, WHU-CD, CLC
 ![result_of_BDA](assets/result_of_BDA.png)
 
 ![result_of_CC](assets/result_of_CC.png)
-
 
 # TODO
 - [x] Code release of Change3D for BCD.
