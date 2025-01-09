@@ -1,6 +1,7 @@
 # Change3D
 The official code of **[Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective](https://arxiv.org/pdf/2406.12847)**.  
-Duowang Zhu<sup>1</sup>, Xiaohu Huang<sup>2</sup>, Haiyan Huang<sup>1</sup>, Hao Zhou<sup>3</sup>, and Zhenfeng Shao<sup>1</sup>
+
+Duowang Zhu<sup>1</sup>, Xiaohu Huang<sup>2</sup>, Haiyan Huang<sup>1</sup>, Hao Zhou<sup>3</sup>, and Zhenfeng Shao<sup>1</sup>  
 
 <sup>1</sup> LIESMARS, Wuhan University&nbsp;&nbsp; <sup>2</sup> Visual AI Lab, The University of Hong Kong&nbsp;&nbsp; <sup>3</sup> Department of Computer Vision Technology (VIS), Baidu Inc.
 
