@@ -125,7 +125,7 @@ Download [xBD](https://xview2.org/dataset) dataset. Prepare the dataset into the
 - For CC:
 Download [LEVIR-CC](https://github.com/Chen-Yang-Liu/RSICC) and [DUBAI-CC](https://disi.unitn.it/~melgani/datasets.html) datasets. Then follow the practice introduced in [RSICCfromer](https://github.com/Chen-Yang-Liu/RSICC/blob/main/create_input_files.py)
 
-## 🎮 Train the Models
+## 🎮 Train & Evalaute the Models
 
 Training binary change detection with LEVIR-CD dataset as an example:
 
@@ -137,6 +137,7 @@ python ./scripts/train_BCD.py --dataset LEVIR-CD
                               --gpu_id 0
 ```
 
+**Note:** The above train script completes the evaluation automatically.
 
 ## ❤️ Acknowledgements
 
