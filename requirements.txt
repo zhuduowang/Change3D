@@ -1,0 +1,15 @@
+einops==0.8.1
+fvcore==0.1.5.post20221221
+h5py==3.13.0
+imageio==2.37.0
+matplotlib==3.10.1
+numpy==2.2.4
+opencv_python==4.11.0.86
+Pillow==11.1.0
+pytorchvideo==0.1.5
+scipy==1.15.2
+skimage==0.0
+thop==0.1.1.post2209072238
+torch==2.0.1+cu118
+torchvision==0.15.2+cu118
+tqdm==4.67.1
