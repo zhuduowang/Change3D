@@ -147,7 +147,11 @@ This repository is mainly built upon [pytorchvideo](https://github.com/facebookr
 
 If you have any issues while using the project, please feel free to contact me: [zhuduowang@whu.edu.cn](zhuduowang@whu.edu.cn).
 
-## 📝 Citation
+## 📜 License
+
+Change3D is released under the [`CC BY-NC-SA 4.0 license`](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+## 📚 Citation
 
 If you find our work useful, please consider citing our paper:
 
