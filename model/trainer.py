@@ -37,7 +37,7 @@ class Encoder(nn.Module):
         self.args = args
 
         # Initialize X3D backbone
-        self.x3d = create_x3d(input_clip_length=3, depth_factor=5.0, stem_conv_stride=(1,2,2))
+        self.x3d = create_x3d(input_clip_length=3, depth_factor=5.0)
 
         # Load pretrained weights
         try:
