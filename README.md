@@ -63,7 +63,7 @@ conda activate Change3D
 pip install -r requirements.txt
 ```
 
-#### Pretrained Weight
+### Pretrained Weight
 
 Download the [X3D-L](https://dl.fbaipublicfiles.com/pytorchvideo/model_zoo/kinetics/X3D_L.pyth) weight and put it into the root directory.
 
@@ -73,9 +73,9 @@ Download the [X3D-L](https://dl.fbaipublicfiles.com/pytorchvideo/model_zoo/kinet
 Download [LEVIR-CD](https://chenhao.in/LEVIR/), [WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html) and [CLCD](https://github.com/liumency/CropLand-CD) datasets. Prepare the dataset into the following structure and crop each image into 256x256 patches.
 ```
     ├─Train
-        ├─t1          jpg/png
-        ├─t2          jpg/png
-        └─label       jpg/png
+        ├─t1          jpg/png (input image of T1)
+        ├─t2          jpg/png (input image of T2)
+        └─label       jpg/png (binary change mask)
     ├─Val
         ├─t1 
         ├─t2
@@ -90,17 +90,13 @@ Download [LEVIR-CD](https://chenhao.in/LEVIR/), [WHU-CD](http://gpcv.whu.edu.cn/
 Download [HRSCD](https://rcdaudt.github.io/hrscd/) and [SECOND](https://captain-whu.github.io/SCD/) datasets. Prepare the dataset into the following structure and crop each image into 256x256 patches.
 ```
     ├─Train
-        ├─t1          jpg/png
-        ├─t2          jpg/png
-        ├─label1      jpg/png
-        ├─label2      jpg/png
-        └─change      jpg/png
-    ├─Val
-        ├─t1
-        ├─t2
-        ├─label1
-        ├─label2
-        └─change
+        ├─t1          jpg/png  (input image of T1)
+        ├─t2          jpg/png  (input image of T2)
+        ├─label1      jpg/png  (semantic mask of T1)
+        ├─label2      jpg/png  (semantic mask of T2)
+        └─change      jpg/png  (binary change mask)
+    ...
+
     ├─Test
         ├─t1
         ├─t2
@@ -113,15 +109,12 @@ Download [HRSCD](https://rcdaudt.github.io/hrscd/) and [SECOND](https://captain-
 Download [xBD](https://xview2.org/dataset) dataset. Prepare the dataset into the following structure and crop each image into 256x256 patches.
 ```
     ├─Train
-        ├─t1          jpg/png
-        ├─t2          jpg/png
-        ├─label1      jpg/png
-        └─label2      jpg/png
-    ├─Val
-        ├─t1
-        ├─t2
-        ├─label1
-        └─label2
+        ├─t1          jpg/png  (input image of T1)
+        ├─t2          jpg/png  (input image of T2)
+        ├─label1      jpg/png  (damage localization mask)
+        └─label2      jpg/png  (damage level mask)
+    ...
+
     ├─Test
         ├─t1
         ├─t2
@@ -130,79 +123,33 @@ Download [xBD](https://xview2.org/dataset) dataset. Prepare the dataset into the
 ```
 
 - For CC:
-Download [LEVIR-CC](https://github.com/Chen-Yang-Liu/RSICC) and [DUBAI-CC](https://disi.unitn.it/~melgani/datasets.html) datasets.
+Download [LEVIR-CC](https://github.com/Chen-Yang-Liu/RSICC) and [DUBAI-CC](https://disi.unitn.it/~melgani/datasets.html) datasets. Then follow the practice introduced in [RSICCfromer](https://github.com/Chen-Yang-Liu/RSICC/blob/main/create_input_files.py)
 
-Prepare the dataset into the following structure and set its path in the get_dataset_path function.
+## 🎮 Train the Models
 
+Training binary change detection with LEVIR-CD dataset as an example:
 
-### Inference with Pre-trained Models
-
-- Download weights and data infos:
-
-    - Download pre-trained models
-        | Tokenizer | Generation Model | FID | FID cfg |
-        |:---------:|:----------------|:----:|:---:|
-        | [VA-VAE](https://huggingface.co/hustvl/vavae-imagenet256-f16d32-dinov2/blob/main/vavae-imagenet256-f16d32-dinov2.pt) | [LightningDiT-XL-800ep](https://huggingface.co/hustvl/lightningdit-xl-imagenet256-800ep/blob/main/lightningdit-xl-imagenet256-800ep.pt) | 2.17 | 1.35 |
-        |           | [LightningDiT-XL-64ep](https://huggingface.co/hustvl/lightningdit-xl-imagenet256-64ep/blob/main/lightningdit-xl-imagenet256-64ep.pt) | 5.14 | 2.11 |
-
-    - Download [latent statistics](https://huggingface.co/hustvl/vavae-imagenet256-f16d32-dinov2/blob/main/latents_stats.pt). This file contains the channel-wise mean and standard deviation statistics.
-
-    - Modify config file in ``configs/reproductions`` as required. 
-
-- Fast sample demo images:
-
-    Run:
-    ```
-    bash bash run_fast_inference.sh ${config_path}
-    ```
-    Images will be saved into ``demo_images/demo_samples.png``, e.g. the following one:
-    <div align="center">
-    <img src="images/demo_samples.png" alt="Demo Samples" width="600">
-    </div>
-
-- Sample for FID-50k evaluation:
-    
-    Run:
-    ```
-    bash run_inference.sh ${config_path}
-    ```
-    NOTE: The FID result reported by the script serves as a reference value. The final FID-50k reported in paper is evaluated with ADM:
-
-    ```
-    git clone https://github.com/openai/guided-diffusion.git
-    
-    # save your npz file with tools/save_npz.py
-    bash run_fid_eval.sh /path/to/your.npz
-    ```
-
-## 🎮 Train Your Own Models
-
- 
-- **We provide a 👆[detailed tutorial](docs/tutorial.md) for training your own models of 2.1 FID score within only 64 epochs. It takes only about 10 hours with 8 x H800 GPUs.** 
+```
+python ./scripts/train_BCD.py --dataset LEVIR-CD
+                              --file_root path/to/LEVIR-CD
+                              --pretrained path/to/X3D_L.pyth
+                              --save_dir ./exp
+                              --gpu_id 0
+```
 
 
 ## ❤️ Acknowledgements
 
-This repo is mainly built on [DiT](https://github.com/facebookresearch/DiT), [FastDiT](https://github.com/chuanyangjin/fast-DiT) and [SiT](https://github.com/willisma/SiT). Our VAVAE codes are mainly built with [LDM](https://github.com/CompVis/latent-diffusion) and [MAR](https://github.com/LTH14/mar). Thanks for all these great works.
+This repository is mainly built upon [pytorchvideo](https://github.com/facebookresearch/pytorchvideo) and [RSICCfromer](https://github.com/Chen-Yang-Liu/RSICC). Thanks for those well-organized codebases.
 
 ## 📝 Citation
 
-If you find our work useful, please consider to cite our related paper:
+If you find our work useful, please consider citing our paper:
 
 ```
-# CVPR 2025
-@article{vavae,
-  title={Reconstruction vs. Generation: Taming Optimization Dilemma in Latent Diffusion Models},
-  author={Yao, Jingfeng and Wang, Xinggang},
-  journal={arXiv preprint arXiv:2501.01423},
+@inproceedings{zhu2025change3d,
+  title={Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective},
+  author={Zhu, Duowang and Huang, Xiaohu and Huang, Haiyan and Zhou, Hao and Shao, Zhenfeng},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
   year={2025}
-}
-
-# NeurIPS 24
-@article{fasterdit,
-  title={FasterDiT: Towards Faster Diffusion Transformers Training without Architecture Modification},
-  author={Yao, Jingfeng and Wang, Cheng and Liu, Wenyu and Wang, Xinggang},
-  journal={arXiv preprint arXiv:2410.10356},
-  year={2024}
-}
 ```
