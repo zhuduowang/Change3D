@@ -1,90 +1,136 @@
-# Change3D
-The official code of **[Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective](https://arxiv.org/pdf/2406.12847)**.  
+<div align="center">
 
-Duowang Zhu<sup>1</sup>, Xiaohu Huang<sup>2</sup>, Haiyan Huang<sup>1</sup>, Hao Zhou<sup>3</sup>, and Zhenfeng Shao<sup>1</sup>  
+<h2>Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective</h2>
 
-<sup>1</sup> LIESMARS, Wuhan University&nbsp;&nbsp; <sup>2</sup> Visual AI Lab, The University of Hong Kong&nbsp;&nbsp; <sup>3</sup> Department of Computer Vision Technology (VIS), Baidu Inc.
+**_A simple and efficient framework for change detection and captioning tasks._**
 
-[[paper]](https://arxiv.org/pdf/2406.12847)
+[Duowang Zhu](https://scholar.google.com/citations?user=9qk9xhoAAAAJ&hl=en)<sup>1</sup>, [Xiaohu Huang](https://scholar.google.com/citations?user=sBjFwuQAAAAJ&hl=en)<sup>2</sup>, [Haiyan Huang](https://www.researchgate.net/profile/Haiyan-Huang-11)<sup>1</sup>, [Hao Zhou](https://scholar.google.com/citations?user=xZ-0R3cAAAAJ&hl=zh-CN)<sup>3</sup>, and [Zhenfeng Shao](http://www.lmars.whu.edu.cn/prof_web/shaozhenfeng/index.html)<sup>1*</sup>  
 
-# Abstract
-We present **Change3D**, a unified video-based framework for change detection and captioning. Unlike traditional methods that use separate image encoders and multiple change extractors, Change3D treats bi-temporal images as a short video with learnable perception frames. A video encoder enables direct interaction and difference detection, simplifying the architecture. Our approach supports various tasks, including binary change detection (BCD), semantic change detection (SCD), building damage assessment (BDA), and change captioning (CC). Evaluated on eight benchmarks, Change3D outperforms SOTA methods while using only **~6%–13%** of the parameters and **~8%–34%** of the FLOPs.
+<sup>1</sup> Wuhan University&nbsp;&nbsp; <sup>2</sup> The University of Hong Kong&nbsp;&nbsp; <sup>3</sup> Bytedance
 
-# Framework
-![Framework](assets/framework.png)
+[![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![paper](https://img.shields.io/badge/CVPR'25-Change3D-red)](https://arxiv.org/abs/2501.01423)
 
-Figure 1. Overall architectures of Change3D for Binary Change Detection, Semantic Change Detection, Building Damage Assessment, and Change Captioning.
+</div>
+<div align="center">
+<img src="assets/parameter_distribution_with_Change3D.png" alt="Visualization" style="width: 60%; max-width: 800px;">
+</div>
 
-# Performance
-We conduct extensive experiments on eight public datasets: LEVIR-CD, WHU-CD, CLCD, HRSCD, SECOND, xBD, LEVIR-CC, and DUBAI-CC.
+## ✨ Highlights
 
-![result_of_BCD](assets/result_of_BCD.png)
+- **Unified framework** for multiple change detection and captioning tasks.
+- **Highly efficient: Uses only ~6%–13% parameters and ~8%–34% FLOPs** of SOTA models.
+- **SOTA performance with simpler design**, establishing Change3D as a strong alternative to 2D-based approaches.
 
-![result_of_SCD](assets/result_of_SCD.png)
+## 📰 News
 
-![result_of_BDA](assets/result_of_BDA.png)
+- **[2025.02.27]** **VA-VAE has been accepted by CVPR 2025!** 🎉🎉🎉
 
-![result_of_CC](assets/result_of_CC.png)
+- **[2025.02.25]** We have released [training codes of VA-VAE](vavae)!
 
-# TODO
-- [x] Code release of Change3D for BCD.
-- [ ] Code release of Change3D for SCD.
-- [ ] Code release of Change3D for BDA.
-- [ ] Code release of Change3D for CC.
+- **[2025.01.16]** More experimental tokenizer variants have been released! You could check them [here](https://huggingface.co/hustvl/va-vae-imagenet256-experimental-variants/tree/main).
 
+- **[2025.01.02]** We have released the pre-trained weights.
 
-# Usage
+- **[2025.01.01]** We have released the code and paper for VA-VAE and LightningDiT! The weights and pre-extracted latents will be released soon.
 
-### Data Preparation
-- Download the [LEVIR-CD](https://chenhao.in/LEVIR/), [WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html), [CLCD](https://github.com/liumency/CropLand-CD), and [OSCD](https://rcdaudt.github.io/oscd/) datasets. (You can also download the processed WHU-CD dataset from [here](https://www.dropbox.com/scl/fi/8gczkg78fh95yofq5bs7p/WHU.zip?rlkey=05bpczx0gdp99hl6o2xr1zvyj&dl=0))
+## 📄 Introduction
 
-- Crop each image in the dataset into 256x256 patches.
+Latent diffusion models (LDMs) with Transformer architectures excel at generating high-fidelity images. However, recent studies reveal an **optimization dilemma** in this two-stage design: while increasing the per-token feature dimension in visual tokenizers improves reconstruction quality, it requires substantially larger diffusion models and more training iterations to achieve comparable generation performance.
+Consequently, existing systems often settle for sub-optimal solutions, either producing visual artifacts due to information loss within tokenizers or failing to converge fully due to expensive computation costs.
 
-- Prepare the dataset into the following structure and set its path in the [config](https://github.com/zhuduowang/ChangeViT/blob/5e08b4b2bdc94de282588562b85bb4bb6e0cd610/main.py#L146) file.
-    ```
-    ├─Train
-        ├─A          jpg/png
-        ├─B          jpg/png
-        └─label      jpg/png
-    ├─Val
-        ├─A 
-        ├─B
-        └─label
-    ├─Test
-        ├─A
-        ├─B
-        └─label
-    ```
+We argue that this dilemma stems from the inherent difficulty in learning unconstrained high-dimensional latent spaces. To address this, we propose aligning the latent space with pre-trained vision foundation models when training the visual tokenizers. Our proposed VA-VAE (Vision foundation model Aligned Variational AutoEncoder) significantly expands the reconstruction-generation frontier of latent diffusion models, enabling faster convergence of Diffusion Transformers (DiT) in high-dimensional latent spaces.
+To exploit the full potential of VA-VAE, we build an enhanced DiT baseline with improved training strategies and architecture designs, termed LightningDiT.
+The integrated system demonstrates remarkable training efficiency by reaching FID=2.11 in just 64 epochs -- an over 21× convergence speedup over the original DiT implementations, while achieving state-of-the-art performance on ImageNet-256 image generation with FID=1.35.
 
-## Dependency
+## 📝 Results
+
+- State-of-the-art Performance on ImageNet 256x256 with FID=1.35.
+- Surpass DiT within only 64 epochs training, achieving 21.8x speedup.
+
+<div align="center">
+<img src="images/results.png" alt="Results">
+</div>
+
+## 🎯 How to Use
+
+### Installation
+
 ```
+conda create -n lightningdit python=3.10.12
+conda activate lightningdit
 pip install -r requirements.txt
 ```
 
-## Training
+
+### Inference with Pre-trained Models
+
+- Download weights and data infos:
+
+    - Download pre-trained models
+        | Tokenizer | Generation Model | FID | FID cfg |
+        |:---------:|:----------------|:----:|:---:|
+        | [VA-VAE](https://huggingface.co/hustvl/vavae-imagenet256-f16d32-dinov2/blob/main/vavae-imagenet256-f16d32-dinov2.pt) | [LightningDiT-XL-800ep](https://huggingface.co/hustvl/lightningdit-xl-imagenet256-800ep/blob/main/lightningdit-xl-imagenet256-800ep.pt) | 2.17 | 1.35 |
+        |           | [LightningDiT-XL-64ep](https://huggingface.co/hustvl/lightningdit-xl-imagenet256-64ep/blob/main/lightningdit-xl-imagenet256-64ep.pt) | 5.14 | 2.11 |
+
+    - Download [latent statistics](https://huggingface.co/hustvl/vavae-imagenet256-f16d32-dinov2/blob/main/latents_stats.pt). This file contains the channel-wise mean and standard deviation statistics.
+
+    - Modify config file in ``configs/reproductions`` as required. 
+
+- Fast sample demo images:
+
+    Run:
+    ```
+    bash bash run_fast_inference.sh ${config_path}
+    ```
+    Images will be saved into ``demo_images/demo_samples.png``, e.g. the following one:
+    <div align="center">
+    <img src="images/demo_samples.png" alt="Demo Samples" width="600">
+    </div>
+
+- Sample for FID-50k evaluation:
+    
+    Run:
+    ```
+    bash run_inference.sh ${config_path}
+    ```
+    NOTE: The FID result reported by the script serves as a reference value. The final FID-50k reported in paper is evaluated with ADM:
+
+    ```
+    git clone https://github.com/openai/guided-diffusion.git
+    
+    # save your npz file with tools/save_npz.py
+    bash run_fid_eval.sh /path/to/your.npz
+    ```
+
+## 🎮 Train Your Own Models
+
+ 
+- **We provide a 👆[detailed tutorial](docs/tutorial.md) for training your own models of 2.1 FID score within only 64 epochs. It takes only about 10 hours with 8 x H800 GPUs.** 
+
+
+## ❤️ Acknowledgements
+
+This repo is mainly built on [DiT](https://github.com/facebookresearch/DiT), [FastDiT](https://github.com/chuanyangjin/fast-DiT) and [SiT](https://github.com/willisma/SiT). Our VAVAE codes are mainly built with [LDM](https://github.com/CompVis/latent-diffusion) and [MAR](https://github.com/LTH14/mar). Thanks for all these great works.
+
+## 📝 Citation
+
+If you find our work useful, please consider to cite our related paper:
+
 ```
-python main.py --file_root LEVIR --max_steps 80000 --model_type small --batch_size 16 --lr 2e-4 --gpu_id 0
-```
+# CVPR 2025
+@article{vavae,
+  title={Reconstruction vs. Generation: Taming Optimization Dilemma in Latent Diffusion Models},
+  author={Yao, Jingfeng and Wang, Xinggang},
+  journal={arXiv preprint arXiv:2501.01423},
+  year={2025}
+}
 
-## Inference
-```
-python eval.py --file_root LEVIR --max_steps 80000 --model_type small --batch_size 16 --lr 2e-4 --gpu_id 0
-```
-
-## License
-ChangeViT is released under the [CC BY-NC-SA 4.0 license](LICENSE).
-
-
-## Acknowledgement
-This repository is built upon [pytorchvideo](https://github.com/facebookresearch/pytorchvideo) and [A2Net](https://github.com/guanyuezhen/A2Net). Thanks for those well-organized codebases.
-
-
-## Citation
-```bibtex
-@article{zhu2024changevit,
-  title={ChangeViT: Unleashing Plain Vision Transformers for Change Detection},
-  author={Zhu, Duowang and Huang, Xiaohu and Huang, Haiyan and Shao, Zhenfeng and Cheng, Qimin},
-  journal={arXiv preprint arXiv:2406.12847},
+# NeurIPS 24
+@article{fasterdit,
+  title={FasterDiT: Towards Faster Diffusion Transformers Training without Architecture Modification},
+  author={Yao, Jingfeng and Wang, Cheng and Liu, Wenyu and Wang, Xinggang},
+  journal={arXiv preprint arXiv:2410.10356},
   year={2024}
 }
 ```
