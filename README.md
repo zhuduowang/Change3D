@@ -123,7 +123,7 @@ Download [xBD](https://xview2.org/dataset) dataset. Prepare the dataset into the
 ```
 
 - For CC:
-Download [LEVIR-CC](https://github.com/Chen-Yang-Liu/RSICC) and [DUBAI-CC](https://disi.unitn.it/~melgani/datasets.html) datasets. Then follow the practice introduced in [RSICCfromer](https://github.com/Chen-Yang-Liu/RSICC/blob/main/create_input_files.py)
+Download [LEVIR-CC](https://github.com/Chen-Yang-Liu/RSICC) and [DUBAI-CC](https://disi.unitn.it/~melgani/datasets.html) datasets. Then follow the practice introduced in [RSICCfromer](https://github.com/Chen-Yang-Liu/RSICC/blob/main/create_input_files.py).
 
 ## 🎮 Train & Evalaute the Models
 
