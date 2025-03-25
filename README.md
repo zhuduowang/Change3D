@@ -123,7 +123,7 @@ Download [xBD](https://xview2.org/dataset) dataset. Prepare the dataset into the
 ```
 
 - For CC:
-Download [LEVIR-CC](https://github.com/Chen-Yang-Liu/RSICC) and [DUBAI-CC](https://disi.unitn.it/~melgani/datasets.html) datasets. Then follow the practice introduced in [RSICCfromer](https://github.com/Chen-Yang-Liu/RSICC/blob/main/create_input_files.py).
+Download [LEVIR-CC](https://github.com/Chen-Yang-Liu/RSICC) and [DUBAI-CC](https://disi.unitn.it/~melgani/datasets.html) datasets. Then follow the practice introduced in [RSICCformer](https://github.com/Chen-Yang-Liu/RSICC/blob/main/create_input_files.py).
 
 ## 🎮 Train & Evalaute the Models
 
@@ -141,7 +141,7 @@ python ./scripts/train_BCD.py --dataset LEVIR-CD
 
 ## ❤️ Acknowledgements
 
-This repository is mainly built upon [pytorchvideo](https://github.com/facebookresearch/pytorchvideo) and [RSICCfromer](https://github.com/Chen-Yang-Liu/RSICC). Thanks for those well-organized codebases.
+This repository is mainly built upon [pytorchvideo](https://github.com/facebookresearch/pytorchvideo) and [RSICCformer](https://github.com/Chen-Yang-Liu/RSICC). Thanks for those well-organized codebases.
 
 ## 📧 Contact
 
