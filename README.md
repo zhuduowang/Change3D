@@ -11,6 +11,8 @@
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![paper](https://img.shields.io/badge/CVPR'25-Change3D-red)](https://arxiv.org/abs/2501.01423)
 
+
+
 </div>
 <div align="center">
 <img src="assets/parameter_distribution_with_Change3D.png" alt="Visualization" style="width: 60%; max-width: 800px;">
@@ -18,50 +20,55 @@
 
 ## ✨ Highlights
 
-- **Unified framework** for multiple change detection and captioning tasks.
-- **Highly efficient: Uses only ~6%–13% parameters and ~8%–34% FLOPs** of SOTA models.
-- **SOTA performance with simpler design**, establishing Change3D as a strong alternative to 2D-based approaches.
+- **Unified Framework:** Supports multiple change detection and captioning tasks.
+- **Highly Efficient: Uses ~6–13% of the parameters and ~8–34% of the FLOPs** compared to SOTA.
+- **SOTA Performance:** Achieves SOTA performance **without complex structures**, offering an alternative to 2D models.
 
 ## 📰 News
 
-- **[2025.02.27]** **VA-VAE has been accepted by CVPR 2025!** 🎉🎉🎉
+- **[2025.03.25]** We have released all the training codes of Change3D!
 
-- **[2025.02.25]** We have released [training codes of VA-VAE](vavae)!
+- **[2025.02.27]** **Change3D has been accepted by CVPR 2025!** 🎉🎉
 
-- **[2025.01.16]** More experimental tokenizer variants have been released! You could check them [here](https://huggingface.co/hustvl/va-vae-imagenet256-experimental-variants/tree/main).
+## 📄 Abstract
 
-- **[2025.01.02]** We have released the pre-trained weights.
+We present **Change3D**, a unified video-based framework for change detection and captioning. Unlike traditional methods that use separate image encoders and multiple change extractors, Change3D treats bi-temporal images as a short video with learnable perception frames. A video encoder enables direct interaction and difference detection, simplifying the architecture. Our approach supports various tasks, including binary change detection (BCD), semantic change detection (SCD), building damage assessment (BDA), and change captioning (CC). Evaluated on eight benchmarks, Change3D outperforms SOTA methods while using only **~6%–13%** of the parameters and **~8%–34%** of the FLOPs.
 
-- **[2025.01.01]** We have released the code and paper for VA-VAE and LightningDiT! The weights and pre-extracted latents will be released soon.
+## 🎮 Framework
+![Framework](assets/framework.png)
 
-## 📄 Introduction
+Figure 1. Overall architectures of Change3D for Binary Change Detection, Semantic Change Detection, Building Damage Assessment, and Change Captioning.
 
-Latent diffusion models (LDMs) with Transformer architectures excel at generating high-fidelity images. However, recent studies reveal an **optimization dilemma** in this two-stage design: while increasing the per-token feature dimension in visual tokenizers improves reconstruction quality, it requires substantially larger diffusion models and more training iterations to achieve comparable generation performance.
-Consequently, existing systems often settle for sub-optimal solutions, either producing visual artifacts due to information loss within tokenizers or failing to converge fully due to expensive computation costs.
+## 📝 Performance
+We conduct extensive experiments on eight public datasets: LEVIR-CD, WHU-CD, CLCD, HRSCD, SECOND, xBD, LEVIR-CC, and DUBAI-CC.
 
-We argue that this dilemma stems from the inherent difficulty in learning unconstrained high-dimensional latent spaces. To address this, we propose aligning the latent space with pre-trained vision foundation models when training the visual tokenizers. Our proposed VA-VAE (Vision foundation model Aligned Variational AutoEncoder) significantly expands the reconstruction-generation frontier of latent diffusion models, enabling faster convergence of Diffusion Transformers (DiT) in high-dimensional latent spaces.
-To exploit the full potential of VA-VAE, we build an enhanced DiT baseline with improved training strategies and architecture designs, termed LightningDiT.
-The integrated system demonstrates remarkable training efficiency by reaching FID=2.11 in just 64 epochs -- an over 21× convergence speedup over the original DiT implementations, while achieving state-of-the-art performance on ImageNet-256 image generation with FID=1.35.
+![result_of_BCD](assets/result_of_BCD.png)
 
-## 📝 Results
+![result_of_SCD](assets/result_of_SCD.png)
 
-- State-of-the-art Performance on ImageNet 256x256 with FID=1.35.
-- Surpass DiT within only 64 epochs training, achieving 21.8x speedup.
+![result_of_BDA](assets/result_of_BDA.png)
 
-<div align="center">
-<img src="images/results.png" alt="Results">
-</div>
+![result_of_CC](assets/result_of_CC.png)
 
 ## 🎯 How to Use
 
 ### Installation
 
 ```
-conda create -n lightningdit python=3.10.12
-conda activate lightningdit
+conda create -n Change3D python=3.11.0
+conda activate Change3D
 pip install -r requirements.txt
 ```
 
+#### Pretrained Weight
+
+Download the [X3D-L](https://dl.fbaipublicfiles.com/pytorchvideo/model_zoo/kinetics/X3D_L.pyth) weight and put it into the root directory to initialize the video encoder.
+
+### Data Preparation
+
+- For BCD: 
+Download the [LEVIR-CD](https://chenhao.in/LEVIR/), [WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html) and [CLCD](https://github.com/liumency/CropLand-CD) datasets.
+```
 
 ### Inference with Pre-trained Models
 
