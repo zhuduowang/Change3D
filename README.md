@@ -8,10 +8,13 @@
 
 <sup>1</sup> Wuhan University&nbsp;&nbsp; <sup>2</sup> The University of Hong Kong&nbsp;&nbsp; <sup>3</sup> Bytedance
 
-[![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![paper](https://img.shields.io/badge/CVPR'25-Change3D-red)](https://arxiv.org/abs/2501.01423)
+<div align="center">
 
+[<img src="https://img.shields.io/badge/Paper-PDF-red" height="25">](https://arxiv.org/pdf/2503.18803)
+[<img src="https://img.shields.io/badge/arXiv-2503.18803-green" height="25">](https://arxiv.org/pdf/2503.18803)
+[<img src="https://img.shields.io/badge/Webpage-Demo-blue?logo=globe" height="25">](https://zhuduowang.github.io/Change3D)
 
+</div>
 
 </div>
 <div align="center">
@@ -62,13 +65,75 @@ pip install -r requirements.txt
 
 #### Pretrained Weight
 
-Download the [X3D-L](https://dl.fbaipublicfiles.com/pytorchvideo/model_zoo/kinetics/X3D_L.pyth) weight and put it into the root directory to initialize the video encoder.
+Download the [X3D-L](https://dl.fbaipublicfiles.com/pytorchvideo/model_zoo/kinetics/X3D_L.pyth) weight and put it into the root directory.
 
 ### Data Preparation
 
 - For BCD: 
-Download the [LEVIR-CD](https://chenhao.in/LEVIR/), [WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html) and [CLCD](https://github.com/liumency/CropLand-CD) datasets.
+Download [LEVIR-CD](https://chenhao.in/LEVIR/), [WHU-CD](http://gpcv.whu.edu.cn/data/building_dataset.html) and [CLCD](https://github.com/liumency/CropLand-CD) datasets. Prepare the dataset into the following structure and crop each image into 256x256 patches.
 ```
+    ├─Train
+        ├─t1          jpg/png
+        ├─t2          jpg/png
+        └─label       jpg/png
+    ├─Val
+        ├─t1 
+        ├─t2
+        └─label
+    ├─Test
+        ├─t1
+        ├─t2
+        └─label
+```
+
+- For SCD:
+Download [HRSCD](https://rcdaudt.github.io/hrscd/) and [SECOND](https://captain-whu.github.io/SCD/) datasets. Prepare the dataset into the following structure and crop each image into 256x256 patches.
+```
+    ├─Train
+        ├─t1          jpg/png
+        ├─t2          jpg/png
+        ├─label1      jpg/png
+        ├─label2      jpg/png
+        └─change      jpg/png
+    ├─Val
+        ├─t1
+        ├─t2
+        ├─label1
+        ├─label2
+        └─change
+    ├─Test
+        ├─t1
+        ├─t2
+        ├─label1
+        ├─label2
+        └─change
+```
+
+- For BDA:
+Download [xBD](https://xview2.org/dataset) dataset. Prepare the dataset into the following structure and crop each image into 256x256 patches.
+```
+    ├─Train
+        ├─t1          jpg/png
+        ├─t2          jpg/png
+        ├─label1      jpg/png
+        └─label2      jpg/png
+    ├─Val
+        ├─t1
+        ├─t2
+        ├─label1
+        └─label2
+    ├─Test
+        ├─t1
+        ├─t2
+        ├─label1
+        └─label2
+```
+
+- For CC:
+Download [LEVIR-CC](https://github.com/Chen-Yang-Liu/RSICC) and [DUBAI-CC](https://disi.unitn.it/~melgani/datasets.html) datasets.
+
+Prepare the dataset into the following structure and set its path in the get_dataset_path function.
+
 
 ### Inference with Pre-trained Models
 
