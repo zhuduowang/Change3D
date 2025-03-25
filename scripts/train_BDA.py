@@ -29,29 +29,6 @@ from model.utils import (
 )
 
 
-def get_dataset_path(dataset_name):
-    """
-    Returns the file path for the specified dataset.
-    
-    Args:
-        dataset_name (str): Name of the dataset.
-        
-    Raises:
-        ValueError: If the dataset_name is not defined.
-    
-    Returns:
-        str: Path to the dataset.
-    """
-    paths = {
-        'xBD': '/data1/zhuduowang/dataset/xBD_256x256'
-    }
-    
-    if dataset_name not in paths:
-        raise ValueError(f"Dataset {dataset_name} is not defined")
-    
-    return paths[dataset_name]
-
-
 def create_data_loaders(args, train_transform, val_transform):
     """
     Creates data loaders for training, validation, and testing.
@@ -275,9 +252,6 @@ def trainValidate(args):
     )
     os.makedirs(save_path, exist_ok=True)
 
-    # Resolve dataset path
-    args.file_root = get_dataset_path(args.dataset)
-
     # Data transformations
     train_transform, val_transform = RSTransforms.BDATransforms.get_transform_pipelines(args)
 
@@ -414,6 +388,11 @@ if __name__ == '__main__':
         '--dataset',
         default="xBD",
         help='Dataset selection | xBD |'
+    )
+    parser.add_argument(
+        '--file_root',
+        default="path/to/xBD",
+        help='path to the dataset directory'
     )
     parser.add_argument(
         '--in_height',

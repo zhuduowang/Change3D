@@ -28,31 +28,6 @@ from model.utils import (
 )
 
 
-def get_dataset_path(dataset_name):
-    """
-    Returns the file path for the specified dataset.
-    
-    Args:
-        dataset_name (str): Name of the dataset.
-        
-    Raises:
-        ValueError: If the dataset_name is not defined.
-    
-    Returns:
-        str: Path to the dataset.
-    """
-    paths = {
-        'LEVIR-CD': '/data2/huanghaiyan/cd_data/levir_cd_256',
-        'WHU-CD': '/data2/zhuduowang/whu_cd_256',
-        'CLCD': '/data2/zhuduowang/clcd_256',
-    }
-    
-    if dataset_name not in paths:
-        raise ValueError(f"Dataset {dataset_name} is not defined")
-    
-    return paths[dataset_name]
-
-
 def create_data_loaders(args, train_transform, val_transform):
     """
     Creates data loaders for training, validation, and testing.
@@ -288,9 +263,6 @@ def trainValidate(args):
     )
     os.makedirs(save_path, exist_ok=True)
 
-    # Resolve dataset path
-    args.file_root = get_dataset_path(args.dataset)
-
     # Data transformations
     train_transform, val_transform = RSTransforms.BCDTransforms.get_transform_pipelines(args)
 
@@ -417,6 +389,11 @@ if __name__ == '__main__':
         '--dataset',
         default="LEVIR-CD",
         help='Dataset selection | LEVIR-CD | WHU-CD | CLCD'
+    )
+    parser.add_argument(
+        '--file_root',
+        default="path/to/LEVIR-CD",
+        help='path to the dataset directory'
     )
     parser.add_argument(
         '--in_height',

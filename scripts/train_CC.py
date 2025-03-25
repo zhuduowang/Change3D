@@ -540,7 +540,7 @@ if __name__ == '__main__':
     # Data parameters
     parser.add_argument(
         '--file_root', 
-        default="../levir_cc_dataset",
+        default="path/to/LEVIR-CC",
         help='Folder with data files saved by create_input_files.py.'
     )
     parser.add_argument(

@@ -32,30 +32,6 @@ from model.utils import (
 )
 
 
-def get_dataset_path(dataset_name):
-    """
-    Returns the file path for the specified dataset.
-
-    Args:
-        dataset_name (str): Name of the dataset
-
-    Raises:
-        ValueError: If the dataset_name is not defined.
-
-    Returns:
-        str: The corresponding dataset path.
-    """
-    paths = {
-        'HRSCD': '/data2/zhuduowang/dataset/hrscd_256x256_ours',
-        'SECOND': '/data2/zhuduowang/clcd_256',
-    }
-
-    if dataset_name not in paths:
-        raise ValueError(f"Dataset {dataset_name} is not defined")
-
-    return paths[dataset_name]
-
-
 def create_data_loaders(args, train_transform, val_transform):
     """
     Creates DataLoaders for training, validation, and testing.
@@ -326,9 +302,6 @@ def trainValidate(args):
     )
     os.makedirs(save_path, exist_ok=True)
 
-    # Get dataset path
-    args.file_root = get_dataset_path(args.dataset)
-
     # Create data transforms
     train_transform, val_transform = RSTransforms.SCDTransforms.get_transform_pipelines(args)
 
@@ -466,22 +439,116 @@ def trainValidate(args):
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--dataset', default="HRSCD", help='Choose between "HRSCD" or "SECOND".')
-    parser.add_argument('--in_height', type=int, default=256, help='Height of RGB input.')
-    parser.add_argument('--in_width', type=int, default=256, help='Width of RGB input.')
-    parser.add_argument('--num_perception_frame', type=int, default=3, help='Number of perception frames.')
-    parser.add_argument('--num_class', type=int, default=6, help='Number of classes.')
-    parser.add_argument('--max_steps', type=int, default=80000, help='Maximum number of iterations.')
-    parser.add_argument('--batch_size', type=int, default=8, help='Batch size.')
-    parser.add_argument('--num_workers', type=int, default=4, help='Number of worker threads.')
-    parser.add_argument('--lr', type=float, default=2e-4, help='Initial learning rate.')
-    parser.add_argument('--lr_mode', default='poly', help='Learning rate policy: "step" or "poly".')
-    parser.add_argument('--step_loss', type=int, default=100, help='Decrease learning rate after how many epochs.')
-    parser.add_argument('--pretrained', default='model/X3D_L.pyth', type=str, help='Path to pretrained weights.')
-    parser.add_argument('--save_dir', default='./exp', help='Directory to save experiment results.')
-    parser.add_argument('--resume', default=None, help='Resume training from a checkpoint.')
-    parser.add_argument('--log_file', default='train_val_log.txt', help='Log file to store training and validation stats.')
-    parser.add_argument('--gpu_id', default=0, type=int, help='GPU ID to use.')
+    
+    # Dataset configuration
+    parser.add_argument(
+        '--dataset', 
+        default="HRSCD", 
+        help='Choose between "HRSCD" or "SECOND".'
+    )
+    parser.add_argument(
+        '--file_root',
+        default="path/to/HRSCD",
+        help='path to the dataset directory'
+    )
+    
+    # Input dimensions
+    parser.add_argument(
+        '--in_height', 
+        type=int, 
+        default=256, 
+        help='Height of RGB input.'
+    )
+    parser.add_argument(
+        '--in_width', 
+        type=int, 
+        default=256, 
+        help='Width of RGB input.'
+    )
+    
+    # Model configuration
+    parser.add_argument(
+        '--num_perception_frame', 
+        type=int, 
+        default=3, 
+        help='Number of perception frames.'
+    )
+    parser.add_argument(
+        '--num_class', 
+        type=int, 
+        default=6, 
+        help='Number of classes.'
+    )
+    
+    # Training parameters
+    parser.add_argument(
+        '--max_steps', 
+        type=int, 
+        default=80000, 
+        help='Maximum number of iterations.'
+    )
+    parser.add_argument(
+        '--batch_size', 
+        type=int, 
+        default=8, 
+        help='Batch size.'
+    )
+    parser.add_argument(
+        '--num_workers', 
+        type=int, 
+        default=4, 
+        help='Number of worker threads.'
+    )
+    
+    # Learning rate settings
+    parser.add_argument(
+        '--lr', 
+        type=float, 
+        default=2e-4, 
+        help='Initial learning rate.'
+    )
+    parser.add_argument(
+        '--lr_mode', 
+        default='poly', 
+        help='Learning rate policy: "step" or "poly".'
+    )
+    parser.add_argument(
+        '--step_loss', 
+        type=int, 
+        default=100, 
+        help='Decrease learning rate after how many epochs.'
+    )
+    
+    # Weights and saving
+    parser.add_argument(
+        '--pretrained', 
+        default='model/X3D_L.pyth', 
+        type=str, 
+        help='Path to pretrained weights.'
+    )
+    parser.add_argument(
+        '--save_dir', 
+        default='./exp', 
+        help='Directory to save experiment results.'
+    )
+    parser.add_argument(
+        '--resume', 
+        default=None, 
+        help='Resume training from a checkpoint.'
+    )
+    parser.add_argument(
+        '--log_file', 
+        default='train_val_log.txt', 
+        help='Log file to store training and validation stats.'
+    )
+    
+    # Hardware
+    parser.add_argument(
+        '--gpu_id', 
+        default=0, 
+        type=int, 
+        help='GPU ID to use.'
+    )
 
     args = parser.parse_args()
     trainValidate(args)
