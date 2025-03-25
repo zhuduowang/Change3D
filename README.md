@@ -143,6 +143,10 @@ python ./scripts/train_BCD.py --dataset LEVIR-CD
 
 This repository is mainly built upon [pytorchvideo](https://github.com/facebookresearch/pytorchvideo) and [RSICCfromer](https://github.com/Chen-Yang-Liu/RSICC). Thanks for those well-organized codebases.
 
+## 📧 Contact
+
+If you have any issues while using the project, please feel free to contact me: [zhuduowang@whu.edu.cn](zhuduowang@whu.edu.cn).
+
 ## 📝 Citation
 
 If you find our work useful, please consider citing our paper:
