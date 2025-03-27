@@ -157,10 +157,10 @@ Change3D is released under the [`CC BY-NC-SA 4.0 license`](https://creativecommo
 If you find our work useful, please consider citing our paper:
 
 ```
-@inproceedings{zhu2025change3d,
+@article{zhu2025change3d,
   title={Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective},
   author={Zhu, Duowang and Huang, Xiaohu and Huang, Haiyan and Zhou, Hao and Shao, Zhenfeng},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  journal={arXiv preprint arXiv:2503.18803},
   year={2025}
 }
 ```
