@@ -1,6 +1,6 @@
 <div align="center">
 
-<h2>Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective (CVPR 2025 🔥🔥)</h2>
+<h2>Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective (CVPR 2025 🔥🔥🔥)</h2>
 
 **_A simple and efficient framework for change detection and captioning tasks._**
 
