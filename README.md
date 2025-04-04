@@ -1,6 +1,6 @@
 <div align="center">
 
-<h2>Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective <be> (CVPR 2025 🔥🔥🔥) </h2>
+<h2>Change3D: Revisiting Change Detection and Captioning from A Video Modeling Perspective <be> (CVPR 2025 Highlight 🔥🔥🔥) </h2>
 
 **_A simple and efficient framework for change detection and captioning tasks._**
 
@@ -29,9 +29,11 @@
 
 ## 📰 News
 
-- **[2025.03.25]** We have released all the training codes of Change3D!
+- **[2025.04.04]** Change3D has been recognized as **a Highlight paper**! 👏👏👏
 
-- **[2025.02.27]** **Change3D has been accepted by CVPR 2025!** 🎉🎉
+- **[2025.03.25]** We have released all the training codes for Change3D!
+
+- **[2025.02.27]** **Change3D has been accepted by CVPR 2025!** 🎉🎉🎉
 
 ## 📄 Abstract
 
