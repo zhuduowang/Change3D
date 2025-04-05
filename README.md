@@ -29,7 +29,7 @@
 
 ## 📰 News
 
-- **[2025.04.04]** Change3D has been recognized as **a Highlight paper**! 👏👏👏
+- **[2025.04.04]** Change3D has been awarded as **a Highlight paper**! 🔥🔥🔥
 
 - **[2025.03.25]** We have released all the training codes for Change3D!
 
