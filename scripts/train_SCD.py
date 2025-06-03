@@ -238,7 +238,7 @@ def train(args, train_loader, model, optimizer, epoch, max_batches, cur_iter, se
         pre_mask = pre_mask.cpu().detach()
         post_mask = post_mask.cpu().detach()
 
-        change_mask = torch.sigmoid(change_mask).cpu().detach() > 0.5
+        change_mask = change_mask.cpu().detach() > 0.5
         pred_mask = torch.argmax(pre_mask, dim=1)
         post_mask = torch.argmax(post_mask, dim=1)
 
