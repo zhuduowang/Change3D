@@ -10,7 +10,7 @@
 
 <div align="center">
 
-[<img src="https://img.shields.io/badge/Paper-PDF-red" height="25">](https://arxiv.org/pdf/2503.18803)
+[<img src="https://img.shields.io/badge/Paper-PDF-red" height="25">]([https://arxiv.org/pdf/2503.18803](https://openaccess.thecvf.com/content/CVPR2025/papers/Zhu_Change3D_Revisiting_Change_Detection_and_Captioning_from_A_Video_Modeling_CVPR_2025_paper.pdf))
 [<img src="https://img.shields.io/badge/arXiv-2503.18803-green" height="25">](https://arxiv.org/pdf/2503.18803)
 [<img src="https://img.shields.io/badge/Webpage-Demo-blue?logo=globe" height="25">](https://zhuduowang.github.io/Change3D)
 
