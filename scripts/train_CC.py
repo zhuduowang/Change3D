@@ -488,7 +488,7 @@ def trainValidate(args):
         # Learning rate adjustment at specific epochs
         if epoch > 0 and epoch % 10 == 0:
             adjust_learning_rate(args=None, optimizer=encoder_optimizer, shrink_factor=0.5)
-            adjust_learning_rate(args=None, optimizer=encoder_optimizer, shrink_factor=0.5)
+            adjust_learning_rate(args=None, optimizer=decoder_optimizer, shrink_factor=0.5)
 
         # One epoch's training
         print(time.strftime("%m-%d  %H : %M : %S", time.localtime(time.time())))
