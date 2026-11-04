@@ -221,7 +221,7 @@ def load_checkpoint(args, model, save_path, max_batches):
         checkpoint_path = osp(save_path, 'checkpoint.pth.tar')
         if os.path.isfile(checkpoint_path):
             print(f"=> loading checkpoint '{checkpoint_path}'")
-            checkpoint = torch.load(checkpoint_path)
+            checkpoint = torch.load(checkpoint_path, weights_only=True)
             start_epoch = checkpoint['epoch']
             cur_iter = start_epoch * max_batches
             model.load_state_dict(checkpoint['state_dict'])
